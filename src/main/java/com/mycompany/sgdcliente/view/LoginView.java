@@ -1,10 +1,17 @@
 // src/main/java/com/mycompany/sgdcliente/view/LoginView.java
+
 package com.mycompany.sgdcliente.view;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.io.InputStreamReader;
+import java.net.Socket;
 
 public class LoginView extends JFrame {
     private JTextField usernameField;
@@ -61,19 +68,32 @@ public class LoginView extends JFrame {
             return;
         }
 
-        try {
-            // Aquí iría la lógica de autenticación (ej., llamar al servidor)
-            System.out.println("Intento de inicio de sesión con usuario: " + username);
+        try (Socket socket = new Socket("localhost", 12345);
+             BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
+             BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()))) {
 
-            // Si la autenticación es exitosa, abre el explorador de archivos
-            SwingUtilities.invokeLater(() -> {
-                LoginView.this.dispose(); // Cierra la ventana de login
-                FileExplorerView fileExplorerView = new FileExplorerView();
-                fileExplorerView.setVisible(true);
-            });
-        } catch (Exception ex) {
+            // Enviar credenciales al servidor
+            writer.write(username + "\n");
+            writer.write(new String(password) + "\n");
+            writer.flush();
+
+            // Leer respuesta del servidor
+            String response = reader.readLine();
+            if ("SUCCESS".equals(response)) {
+                SwingUtilities.invokeLater(() -> {
+                    LoginView.this.dispose(); // Cierra la ventana de login
+                    FileExplorerView fileExplorerView = new FileExplorerView();
+                    fileExplorerView.setVisible(true);
+                });
+            } else {
+                JOptionPane.showMessageDialog(this,
+                        "Credenciales inválidas. Inténtalo de nuevo.",
+                        "Error de Autenticación",
+                        JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (IOException ex) {
             JOptionPane.showMessageDialog(this,
-                    "Error durante el inicio de sesión: " + ex.getMessage(),
+                    "Error de conexión con el servidor: " + ex.getMessage(),
                     "Error",
                     JOptionPane.ERROR_MESSAGE);
             ex.printStackTrace();
