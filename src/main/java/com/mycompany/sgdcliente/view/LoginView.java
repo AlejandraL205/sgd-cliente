@@ -2,22 +2,21 @@
 
 package com.mycompany.sgdcliente.view;
 
+import com.mycompany.sgdcliente.network.ClientConnection;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.IOException;
-import java.io.OutputStreamWriter;
-import java.io.InputStreamReader;
-import java.net.Socket;
 
 public class LoginView extends JFrame {
     private JTextField usernameField;
     private JPasswordField passwordField;
     private JButton loginButton;
     private JButton cancelButton;
+
+    private ClientConnection clientConnection;
 
     public LoginView() {
         setTitle("Login");
@@ -54,6 +53,9 @@ public class LoginView extends JFrame {
                 System.exit(0);
             }
         });
+
+        // Inicializar la conexión con el servidor
+        clientConnection = new ClientConnection("localhost", 12345);
     }
 
     private void handleLogin() {
@@ -68,17 +70,15 @@ public class LoginView extends JFrame {
             return;
         }
 
-        try (Socket socket = new Socket("localhost", 12345);
-             BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
-             BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()))) {
+        try {
+            clientConnection.connect(); // Conectar al servidor
 
             // Enviar credenciales al servidor
-            writer.write(username + "\n");
-            writer.write(new String(password) + "\n");
-            writer.flush();
+            clientConnection.sendMessage(username);
+            clientConnection.sendMessage(new String(password));
 
             // Leer respuesta del servidor
-            String response = reader.readLine();
+            String response = clientConnection.receiveMessage();
             if ("SUCCESS".equals(response)) {
                 SwingUtilities.invokeLater(() -> {
                     LoginView.this.dispose(); // Cierra la ventana de login
@@ -91,6 +91,8 @@ public class LoginView extends JFrame {
                         "Error de Autenticación",
                         JOptionPane.ERROR_MESSAGE);
             }
+
+            clientConnection.disconnect(); // Desconectar del servidor
         } catch (IOException ex) {
             JOptionPane.showMessageDialog(this,
                     "Error de conexión con el servidor: " + ex.getMessage(),
