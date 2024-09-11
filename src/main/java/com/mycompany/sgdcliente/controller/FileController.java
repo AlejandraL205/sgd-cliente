@@ -6,8 +6,11 @@ import com.mycompany.sgdcliente.service.FileService;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class FileController {
+    private static final Logger LOGGER = Logger.getLogger(FileController.class.getName());
     private final FileService fileService;
 
     /**
@@ -26,8 +29,10 @@ public class FileController {
         try {
             return fileService.getFileDetails(fileName);
         } catch (IOException e) {
-            System.err.println("Error al obtener detalles del archivo: " + e.getMessage());
-            return null; // O manejar el error según sea necesario
+            LOGGER.log(Level.SEVERE, "Error al obtener detalles del archivo: " + fileName, e);
+            System.err.println("Error al obtener detalles del archivo: " + fileName);
+            e.printStackTrace();
+            return null;
         }
     }
 
@@ -37,11 +42,19 @@ public class FileController {
      * @param outputFile Archivo local donde se guardará el archivo descargado.
      */
     public void downloadFile(String fileName, File outputFile) {
+        if (fileName == null || outputFile == null) {
+            LOGGER.log(Level.WARNING, "Nombre del archivo o archivo de salida son nulos.");
+            System.out.println("Nombre del archivo o archivo de salida son nulos.");
+            return;
+        }
+        
         try {
             fileService.downloadFile(fileName, outputFile);
+            System.out.println("Archivo descargado exitosamente: " + fileName);
         } catch (IOException e) {
-            System.err.println("Error al descargar el archivo: " + e.getMessage());
-            // Manejar el error según sea necesario
+            LOGGER.log(Level.SEVERE, "Error al descargar el archivo: " + fileName, e);
+            System.err.println("Error al descargar el archivo: " + fileName);
+            e.printStackTrace();
         }
     }
 
@@ -51,11 +64,19 @@ public class FileController {
      * @param newName Nuevo nombre del archivo.
      */
     public void renameFile(String oldName, String newName) {
+        if (oldName == null || newName == null) {
+            LOGGER.log(Level.WARNING, "Nombres de archivos nulos.");
+            System.out.println("Nombres de archivos nulos.");
+            return;
+        }
+        
         try {
             fileService.renameFile(oldName, newName);
+            System.out.println("Archivo renombrado exitosamente de " + oldName + " a " + newName);
         } catch (IOException e) {
-            System.err.println("Error al renombrar el archivo: " + e.getMessage());
-            // Manejar el error según sea necesario
+            LOGGER.log(Level.SEVERE, "Error al renombrar el archivo: " + oldName + " a " + newName, e);
+            System.err.println("Error al renombrar el archivo: " + oldName + " a " + newName);
+            e.printStackTrace();
         }
     }
 
@@ -64,11 +85,19 @@ public class FileController {
      * @param fileName Nombre del archivo a eliminar.
      */
     public void deleteFile(String fileName) {
+        if (fileName == null) {
+            LOGGER.log(Level.WARNING, "Nombre del archivo nulo.");
+            System.out.println("Nombre del archivo nulo.");
+            return;
+        }
+        
         try {
             fileService.deleteFile(fileName);
+            System.out.println("Archivo eliminado exitosamente: " + fileName);
         } catch (IOException e) {
-            System.err.println("Error al eliminar el archivo: " + e.getMessage());
-            // Manejar el error según sea necesario
+            LOGGER.log(Level.SEVERE, "Error al eliminar el archivo: " + fileName, e);
+            System.err.println("Error al eliminar el archivo: " + fileName);
+            e.printStackTrace();
         }
     }
 }

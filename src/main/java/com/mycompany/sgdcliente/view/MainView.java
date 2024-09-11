@@ -1,4 +1,4 @@
-//src\main\java\com\mycompany\sgdcliente\view\MainView.java
+// src\main\java\com\mycompany\sgdcliente\view\MainView.java
 package com.mycompany.sgdcliente.view;
 
 import javax.swing.*;
@@ -8,13 +8,13 @@ public class MainView extends JFrame {
     private JButton connectButton, openExplorerButton;
 
     public MainView() {
-        setTitle("SGD Client");
+        setTitle("Cliente SGD");
         setSize(300, 200);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 
-        connectButton = new JButton("Connect");
-        openExplorerButton = new JButton("Open File Explorer");
+        connectButton = new JButton("Conectar");
+        openExplorerButton = new JButton("Abrir Explorador de Archivos");
 
         JPanel panel = new JPanel(new GridLayout(2, 1, 10, 10));
         panel.add(connectButton);
@@ -23,7 +23,7 @@ public class MainView extends JFrame {
         add(panel, BorderLayout.CENTER);
     }
 
-    // Getters for buttons
+    // Getters para botones
 
     public JButton getConnectButton() {
         return connectButton;

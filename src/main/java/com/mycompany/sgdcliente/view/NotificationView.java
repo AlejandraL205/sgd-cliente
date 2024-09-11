@@ -9,14 +9,14 @@ public class NotificationView extends JFrame {
     private JButton closeButton;
 
     public NotificationView() {
-        setTitle("Notifications");
+        setTitle("Notificaciones");
         setSize(400, 300);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
 
         notificationArea = new JTextArea();
         notificationArea.setEditable(false);
-        closeButton = new JButton("Close");
+        closeButton = new JButton("Cerrar");
 
         JPanel panel = new JPanel(new BorderLayout());
         panel.add(new JScrollPane(notificationArea), BorderLayout.CENTER);
@@ -30,9 +30,16 @@ public class NotificationView extends JFrame {
     public void show() {
         this.setVisible(true);
     }
-    
 
     public void displayNotification(String message) {
-        notificationArea.append(message + "\n");
+        try {
+            notificationArea.append(message + "\n");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this,
+                    "Error al mostrar la notificación: " + e.getMessage(),
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
+        }
     }
 }

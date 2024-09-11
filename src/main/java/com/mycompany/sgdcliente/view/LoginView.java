@@ -24,29 +24,34 @@ public class LoginView extends JFrame {
         cancelButton = new JButton("Cancel");
 
         JPanel panel = new JPanel(new GridLayout(3, 2, 10, 10));
-        panel.add(new JLabel("Username:"));
+        panel.add(new JLabel("Nombre de usuario:"));
         panel.add(usernameField);
-        panel.add(new JLabel("Password:"));
+        panel.add(new JLabel("Contraseña:"));
         panel.add(passwordField);
         panel.add(loginButton);
         panel.add(cancelButton);
 
         add(panel, BorderLayout.CENTER);
 
-        // Add action listeners
         loginButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Implement login logic here
-                System.out.println("Login button clicked");
+                try {
+                    System.out.println("Botón de inicio de sesión clickeado");
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(LoginView.this,
+                            "Error durante el inicio de sesión: " + ex.getMessage(),
+                            "Error",
+                            JOptionPane.ERROR_MESSAGE);
+                    ex.printStackTrace();
+                }
             }
         });
 
         cancelButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Implement cancel logic here
-                System.out.println("Cancel button clicked");
+                System.out.println("Botón de cancelar clickeado");
                 System.exit(0);
             }
         });
@@ -55,5 +60,4 @@ public class LoginView extends JFrame {
     public void show() {
         this.setVisible(true);
     }
-    
 }

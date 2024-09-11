@@ -1,4 +1,4 @@
-//src\main\java\com\mycompany\sgdcliente\view\FileExplorerView.java
+// src\main\java\com\mycompany\sgdcliente\view\FileExplorerView.java
 package com.mycompany.sgdcliente.view;
 
 import javax.swing.*;
@@ -9,14 +9,14 @@ public class FileExplorerView extends JFrame {
     private JButton downloadButton, renameButton, propertiesButton;
 
     public FileExplorerView() {
-        setTitle("File Explorer");
+        setTitle("Explorador de Archivos");
         setSize(400, 300);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        fileList = new JList<>(new String[]{"File1.txt", "File2.doc", "File3.pdf"});
-        downloadButton = new JButton("Download");
-        renameButton = new JButton("Rename");
-        propertiesButton = new JButton("Properties");
+        fileList = new JList<>(new String[] { "Archivo1.txt", "Archivo2.doc", "Archivo3.pdf" });
+        downloadButton = new JButton("Descargar");
+        renameButton = new JButton("Renombrar");
+        propertiesButton = new JButton("Propiedades");
 
         JPanel buttonPanel = new JPanel();
         buttonPanel.add(downloadButton);
@@ -27,7 +27,7 @@ public class FileExplorerView extends JFrame {
         add(buttonPanel, BorderLayout.SOUTH);
     }
 
-    // Getters for buttons and list
+    // Getters para botones y lista
 
     public JList<String> getFileList() {
         return fileList;
