@@ -3,7 +3,6 @@ package com.mycompany.sgdcliente.network;
 
 import java.io.*;
 import java.net.Socket;
-import java.net.SocketException;
 
 public class ClientConnection {
     private Socket socket;
@@ -12,20 +11,11 @@ public class ClientConnection {
     private DataOutputStream out;
     private DataInputStream in;
 
-    /**
-     * Constructor para inicializar la conexión con el servidor.
-     * @param host Dirección IP o nombre del host del servidor.
-     * @param port Puerto del servidor.
-     */
     public ClientConnection(String host, int port) {
         this.host = host;
         this.port = port;
     }
 
-    /**
-     * Establece la conexión con el servidor.
-     * @throws IOException Si ocurre un error al conectar.
-     */
     public void connect() throws IOException {
         socket = new Socket(host, port);
         out = new DataOutputStream(socket.getOutputStream());
@@ -33,10 +23,6 @@ public class ClientConnection {
         System.out.println("Conectado al servidor en " + host + ":" + port);
     }
 
-    /**
-     * Cierra la conexión con el servidor.
-     * @throws IOException Si ocurre un error al cerrar la conexión.
-     */
     public void disconnect() throws IOException {
         if (socket != null && !socket.isClosed()) {
             out.close();
@@ -46,11 +32,6 @@ public class ClientConnection {
         }
     }
 
-    /**
-     * Envía un mensaje al servidor.
-     * @param message Mensaje a enviar.
-     * @throws IOException Si ocurre un error al enviar el mensaje.
-     */
     public void sendMessage(String message) throws IOException {
         if (socket == null || socket.isClosed()) {
             throw new IOException("La conexión no está establecida.");
@@ -59,11 +40,6 @@ public class ClientConnection {
         out.flush();
     }
 
-    /**
-     * Recibe un mensaje del servidor.
-     * @return Mensaje recibido.
-     * @throws IOException Si ocurre un error al recibir el mensaje.
-     */
     public String receiveMessage() throws IOException {
         if (socket == null || socket.isClosed()) {
             throw new IOException("La conexión no está establecida.");
@@ -71,11 +47,6 @@ public class ClientConnection {
         return in.readUTF();
     }
 
-    /**
-     * Envía un archivo al servidor.
-     * @param file El archivo a enviar.
-     * @throws IOException Si ocurre un error al enviar el archivo.
-     */
     public void sendFile(File file) throws IOException {
         if (socket == null || socket.isClosed()) {
             throw new IOException("La conexión no está establecida.");
@@ -92,11 +63,6 @@ public class ClientConnection {
         }
     }
 
-    /**
-     * Recibe un archivo del servidor.
-     * @param outputFile El archivo donde se guardará el contenido recibido.
-     * @throws IOException Si ocurre un error al recibir el archivo.
-     */
     public void receiveFile(File outputFile) throws IOException {
         if (socket == null || socket.isClosed()) {
             throw new IOException("La conexión no está establecida.");

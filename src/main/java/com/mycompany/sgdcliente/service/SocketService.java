@@ -1,9 +1,7 @@
 //src\main\java\com\mycompany\sgdcliente\service\SocketService.java
 package com.mycompany.sgdcliente.service;
-
-import com.mycompany.sgdcliente.network.ClientConnection;
-
 import java.io.IOException;
+import com.mycompany.sgdcliente.network.ClientConnection;
 
 public class SocketService {
     private final ClientConnection clientConnection;
@@ -15,7 +13,6 @@ public class SocketService {
     public void connect() {
         try {
             clientConnection.connect();
-            // Implement socket connection logic
         } catch (IOException e) {
             e.printStackTrace();
         }
