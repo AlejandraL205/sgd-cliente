@@ -64,6 +64,7 @@ public class LoginView extends JFrame {
         try {
             // Aquí iría la lógica de autenticación (ej., llamar al servidor)
             System.out.println("Intento de inicio de sesión con usuario: " + username);
+            // Implementar lógica de permisos basados en la autenticación exitosa
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(this,
                     "Error durante el inicio de sesión: " + ex.getMessage(),
