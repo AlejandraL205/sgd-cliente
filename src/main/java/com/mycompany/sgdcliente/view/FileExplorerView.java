@@ -17,7 +17,7 @@ public class FileExplorerView extends JFrame {
     public FileExplorerView() {
         setTitle("Explorador de Archivos");
         setSize(600, 400);
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         // Crear el árbol de carpetas
         DefaultMutableTreeNode root = new DefaultMutableTreeNode("Documentos");
