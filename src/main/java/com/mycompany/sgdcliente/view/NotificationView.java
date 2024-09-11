@@ -28,8 +28,9 @@ public class NotificationView extends JFrame {
     }
 
     public void show() {
-        setVisible(true);
+        this.setVisible(true);
     }
+    
 
     public void displayNotification(String message) {
         notificationArea.append(message + "\n");

@@ -53,6 +53,7 @@ public class LoginView extends JFrame {
     }
 
     public void show() {
-        setVisible(true);
+        this.setVisible(true);
     }
+    
 }
