@@ -1,4 +1,4 @@
-// src\main\java\com\mycompany\sgdcliente\view\MainView.java
+// src/main/java/com/mycompany/sgdcliente/view/MainView.java
 package com.mycompany.sgdcliente.view;
 
 import javax.swing.*;
@@ -21,9 +21,8 @@ public class MainView extends JFrame {
         panel.add(openExplorerButton);
 
         add(panel, BorderLayout.CENTER);
-    }
 
-    // Getters para botones
+    }
 
     public JButton getConnectButton() {
         return connectButton;

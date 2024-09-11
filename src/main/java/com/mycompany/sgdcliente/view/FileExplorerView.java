@@ -1,4 +1,4 @@
-// src\main\java\com\mycompany\sgdcliente\view\FileExplorerView.java
+// src/main/java/com/mycompany/sgdcliente/view/FileExplorerView.java
 package com.mycompany.sgdcliente.view;
 
 import javax.swing.*;
@@ -11,7 +11,7 @@ public class FileExplorerView extends JFrame {
     public FileExplorerView() {
         setTitle("Explorador de Archivos");
         setSize(400, 300);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
         fileList = new JList<>(new String[] { "Archivo1.txt", "Archivo2.doc", "Archivo3.pdf" });
         downloadButton = new JButton("Descargar");
@@ -25,9 +25,8 @@ public class FileExplorerView extends JFrame {
 
         add(new JScrollPane(fileList), BorderLayout.CENTER);
         add(buttonPanel, BorderLayout.SOUTH);
-    }
 
-    // Getters para botones y lista
+    }
 
     public JList<String> getFileList() {
         return fileList;

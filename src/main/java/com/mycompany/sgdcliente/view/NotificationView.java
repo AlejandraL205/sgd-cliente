@@ -1,4 +1,4 @@
-// src\main\java\com\mycompany\sgdcliente\view\NotificationView.java
+// src/main/java/com/mycompany/sgdcliente/view/NotificationView.java
 package com.mycompany.sgdcliente.view;
 
 import javax.swing.*;
@@ -27,19 +27,21 @@ public class NotificationView extends JFrame {
         closeButton.addActionListener(e -> dispose());
     }
 
-    public void show() {
+    public void showView() {
         this.setVisible(true);
     }
 
     public void displayNotification(String message) {
-        try {
-            notificationArea.append(message + "\n");
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this,
-                    "Error al mostrar la notificación: " + e.getMessage(),
-                    "Error",
-                    JOptionPane.ERROR_MESSAGE);
-            e.printStackTrace();
-        }
+        SwingUtilities.invokeLater(() -> {
+            try {
+                notificationArea.append(message + "\n");
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this,
+                        "Error al mostrar la notificación: " + e.getMessage(),
+                        "Error",
+                        JOptionPane.ERROR_MESSAGE);
+                e.printStackTrace();
+            }
+        });
     }
 }

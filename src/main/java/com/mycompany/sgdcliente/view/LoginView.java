@@ -1,4 +1,4 @@
-// src\main\java\com\mycompany\sgdcliente\view\LoginView.java
+// src/main/java/com/mycompany/sgdcliente/view/LoginView.java
 package com.mycompany.sgdcliente.view;
 
 import javax.swing.*;
@@ -36,15 +36,7 @@ public class LoginView extends JFrame {
         loginButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                try {
-                    System.out.println("Botón de inicio de sesión clickeado");
-                } catch (Exception ex) {
-                    JOptionPane.showMessageDialog(LoginView.this,
-                            "Error durante el inicio de sesión: " + ex.getMessage(),
-                            "Error",
-                            JOptionPane.ERROR_MESSAGE);
-                    ex.printStackTrace();
-                }
+                handleLogin();
             }
         });
 
@@ -57,7 +49,31 @@ public class LoginView extends JFrame {
         });
     }
 
-    public void show() {
+    private void handleLogin() {
+        String username = usernameField.getText();
+        char[] password = passwordField.getPassword();
+
+        if (username.isEmpty() || password.length == 0) {
+            JOptionPane.showMessageDialog(this,
+                    "Por favor, ingrese nombre de usuario y contraseña.",
+                    "Campos Vacíos",
+                    JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        try {
+            // Aquí iría la lógica de autenticación (ej., llamar al servidor)
+            System.out.println("Intento de inicio de sesión con usuario: " + username);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this,
+                    "Error durante el inicio de sesión: " + ex.getMessage(),
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);
+            ex.printStackTrace();
+        }
+    }
+
+    public void showView() {
         this.setVisible(true);
     }
 }
