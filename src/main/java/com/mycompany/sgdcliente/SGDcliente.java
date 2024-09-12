@@ -1,8 +1,6 @@
 // src\main\java\com\mycompany\sgdcliente\SGDcliente.java
 package com.mycompany.sgdcliente;
 
-import com.mycompany.sgdcliente.view.LoginView;
-
 /**
  * Sistema de Gestión Documental (SGD)
  * 
@@ -14,17 +12,24 @@ import com.mycompany.sgdcliente.view.LoginView;
  * - Francisco Mora
  * - Kevin Becerra
  */
+import com.mycompany.sgdcliente.view.LoginView;
+import com.mycompany.sgdcliente.service.RealTimeNotificationClient;
+
 public class SGDcliente {
     public static void main(String[] args) {
         try {
             // Crear e iniciar la vista de inicio de sesión
             LoginView loginView = new LoginView();
             loginView.show();
+
+            // Configura el cliente de notificaciones en tiempo real
+            RealTimeNotificationClient realTimeClient = new RealTimeNotificationClient("localhost", 12345);
+            realTimeClient.start();
+
         } catch (Exception e) {
             // Manejar cualquier excepción inesperada
             System.err.println("Ocurrió un error al iniciar la aplicación.");
             e.printStackTrace();
-
         }
     }
 }
