@@ -91,6 +91,6 @@ public class FileService {
     private FileModel[] parseFileModels(String response) {
         // Implementar la deserialización según el formato de respuesta del servidor.
         // Supongamos que la respuesta es una lista de archivos en formato JSON.
-        return new FileModel[0]; // Ejemplo temporal
+        return new FileModel[0]; 
     }
 }

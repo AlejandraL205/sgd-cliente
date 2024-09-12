@@ -70,7 +70,7 @@ public class ClientConnection {
         } catch (IOException e) {
             System.err.println("Error al enviar el mensaje: " + message);
             e.printStackTrace();
-            throw e; // Re-lanzar para que el llamador también pueda manejar el error
+            throw e;
         }
     }
 
@@ -91,7 +91,7 @@ public class ClientConnection {
         } catch (IOException e) {
             System.err.println("Error al recibir el mensaje.");
             e.printStackTrace();
-            throw e; // Re-lanzar para que el llamador también pueda manejar el error
+            throw e; 
         }
     }
 
@@ -118,7 +118,7 @@ public class ClientConnection {
         } catch (IOException e) {
             System.err.println("Error al enviar el archivo: " + file.getName());
             e.printStackTrace();
-            throw e; // Re-lanzar para que el llamador también pueda manejar el error
+            throw e; 
         }
     }
 
@@ -145,7 +145,7 @@ public class ClientConnection {
         } catch (IOException e) {
             System.err.println("Error al recibir el archivo: " + outputFile.getName());
             e.printStackTrace();
-            throw e; // Re-lanzar para que el llamador también pueda manejar el error
+            throw e;
         }
     }
 

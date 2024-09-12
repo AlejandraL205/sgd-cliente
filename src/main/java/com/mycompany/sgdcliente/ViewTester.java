@@ -17,7 +17,7 @@ public class ViewTester {
 
         // Mostrar FileExplorerView
         SwingUtilities.invokeLater(() -> {
-            FileController fileController = new FileController("localhost", 12345); // O la configuración adecuada
+            FileController fileController = new FileController("localhost", 12345);
             FileExplorerView fileExplorerView = new FileExplorerView(fileController);
             fileExplorerView.setVisible(true);
         });

@@ -73,7 +73,7 @@ public class FileController {
             return fileService.getAllFiles();
         } catch (IOException e) {
             LOGGER.log(Level.SEVERE, "Error al obtener todos los archivos", e);
-            return new FileModel[0]; // Retornar un arreglo vacío en caso de error
+            return new FileModel[0]; 
         }
     }
 }
