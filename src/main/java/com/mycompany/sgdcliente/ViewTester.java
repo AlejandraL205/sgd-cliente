@@ -1,5 +1,6 @@
 package com.mycompany.sgdcliente;
 
+import com.mycompany.sgdcliente.controller.FileController;
 import com.mycompany.sgdcliente.view.FileExplorerView;
 import com.mycompany.sgdcliente.view.LoginView;
 import com.mycompany.sgdcliente.view.MainView;
@@ -16,7 +17,8 @@ public class ViewTester {
 
         // Mostrar FileExplorerView
         SwingUtilities.invokeLater(() -> {
-            FileExplorerView fileExplorerView = new FileExplorerView();
+            FileController fileController = new FileController("localhost", 12345); // O la configuración adecuada
+            FileExplorerView fileExplorerView = new FileExplorerView(fileController);
             fileExplorerView.setVisible(true);
         });
 

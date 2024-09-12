@@ -8,6 +8,7 @@ public class FileModel {
     private String path;
     private Date lastModified;
     private long size;
+    private String type;
 
     // Getters and Setters
 
@@ -41,5 +42,13 @@ public class FileModel {
 
     public void setSize(long size) {
         this.size = size;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 }

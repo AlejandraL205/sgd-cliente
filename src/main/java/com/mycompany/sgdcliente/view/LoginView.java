@@ -2,6 +2,7 @@
 
 package com.mycompany.sgdcliente.view;
 
+import com.mycompany.sgdcliente.controller.FileController;
 import com.mycompany.sgdcliente.network.ClientConnection;
 
 import javax.swing.*;
@@ -82,7 +83,12 @@ public class LoginView extends JFrame {
             if ("SUCCESS".equals(response)) {
                 SwingUtilities.invokeLater(() -> {
                     LoginView.this.dispose(); // Cierra la ventana de login
-                    FileExplorerView fileExplorerView = new FileExplorerView();
+
+                    // Crear un FileController con la misma configuración que antes
+                    FileController fileController = new FileController("localhost", 12345);
+
+                    // Pasar el FileController al FileExplorerView
+                    FileExplorerView fileExplorerView = new FileExplorerView(fileController);
                     fileExplorerView.setVisible(true);
                 });
             } else {

@@ -21,8 +21,6 @@ public class FileService {
             String response = clientConnection.receiveMessage();
             return parseFileModel(response);
         } catch (IOException e) {
-            System.err.println("Error al obtener detalles del archivo: " + fileName);
-            e.printStackTrace();
             throw e;
         } finally {
             clientConnection.disconnect();
@@ -34,10 +32,7 @@ public class FileService {
         try {
             clientConnection.sendMessage("DOWNLOAD " + fileName);
             clientConnection.receiveFile(outputFile);
-            System.out.println("Archivo descargado: " + fileName);
         } catch (IOException e) {
-            System.err.println("Error al descargar el archivo: " + fileName);
-            e.printStackTrace();
             throw e;
         } finally {
             clientConnection.disconnect();
@@ -52,10 +47,7 @@ public class FileService {
             if (!response.equals("SUCCESS")) {
                 throw new IOException("Error al renombrar el archivo: " + response);
             }
-            System.out.println("Archivo renombrado de " + oldName + " a " + newName);
         } catch (IOException e) {
-            System.err.println("Error al renombrar el archivo: " + oldName);
-            e.printStackTrace();
             throw e;
         } finally {
             clientConnection.disconnect();
@@ -70,10 +62,20 @@ public class FileService {
             if (!response.equals("SUCCESS")) {
                 throw new IOException("Error al eliminar el archivo: " + response);
             }
-            System.out.println("Archivo eliminado: " + fileName);
         } catch (IOException e) {
-            System.err.println("Error al eliminar el archivo: " + fileName);
-            e.printStackTrace();
+            throw e;
+        } finally {
+            clientConnection.disconnect();
+        }
+    }
+
+    public FileModel[] getAllFiles() throws IOException {
+        clientConnection.connect();
+        try {
+            clientConnection.sendMessage("GET_ALL_FILES");
+            String response = clientConnection.receiveMessage();
+            return parseFileModels(response);
+        } catch (IOException e) {
             throw e;
         } finally {
             clientConnection.disconnect();
@@ -84,5 +86,11 @@ public class FileService {
         FileModel fileModel = new FileModel();
         // Implementar la deserialización según el formato de respuesta del servidor.
         return fileModel;
+    }
+
+    private FileModel[] parseFileModels(String response) {
+        // Implementar la deserialización según el formato de respuesta del servidor.
+        // Supongamos que la respuesta es una lista de archivos en formato JSON.
+        return new FileModel[0]; // Ejemplo temporal
     }
 }
